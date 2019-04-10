@@ -45,4 +45,8 @@ class Board
     end
     return false
   end
+
+  def winner?
+    false
+  end
 end
