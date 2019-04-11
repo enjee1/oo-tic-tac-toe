@@ -1,19 +1,24 @@
 require "spec_helper"
-require_relative "../lib/board"
 
 describe Board do
+
+  let(:three_space_board) { Board.new }
+  let(:four_space_board) { Board.new(4)}
+  let(:o_player) { Player.new('o') }
+  let(:x_player) { Player.new('x') }
+
   it "can be initialized with 3 rows and columns by default" do
-    board = Board.new
-    expect(board.rows.size).to eq(3)
-    expect(board.rows[0].size).to eq(3)
+    expect(three_space_board.rows.size).to eq(3)
+    expect(three_space_board.rows[0].size).to eq(3)
   end
+
   it "can be initalized with 4 rows and columns if I choose" do
-    board = Board.new(4)
-    expect(board.rows.size).to eq(4)
-    expect(board.rows[0].size).to eq(4)
+    expect(four_space_board.rows.size).to eq(4)
+    expect(four_space_board.rows[0].size).to eq(4)
   end
+
   it "prints 4 rows and columns for a 4 row board" do
-    board = Board.new(4)
+    four_space_board
     board_printout =
     "- | - | - | -\n" +
     "-------------\n" +
@@ -23,10 +28,11 @@ describe Board do
     "-------------\n" +
     "- | - | - | -\n"
 
-    expect(board.print).to eq(board_printout)
+    expect(four_space_board.print).to eq(board_printout)
   end
+
   it "prints 3 rows and columns for a 3 row board" do
-    board = Board.new
+    three_space_board
     board_printout =
     "- | - | -\n" +
     "---------\n" +
@@ -34,12 +40,11 @@ describe Board do
     "---------\n" +
     "- | - | -\n"
 
-    expect(board.print).to eq(board_printout)
+    expect(three_space_board.print).to eq(board_printout)
   end
 
   it "places a player on the board" do
-    board = Board.new
-    board.add_turn('x', 0, 0)
+    three_space_board.add_turn(x_player, 0, 0)
     board_printout =
     "x | - | -\n" +
     "---------\n" +
@@ -47,12 +52,11 @@ describe Board do
     "---------\n" +
     "- | - | -\n"
 
-    expect(board.print).to eq(board_printout)
+    expect(three_space_board.print).to eq(board_printout)
   end
 
   it "places a player on the center of the board" do
-    board = Board.new
-    board.add_turn('o', 1, 1)
+    three_space_board.add_turn(o_player, 1, 1)
 
     board_printout =
     "- | - | -\n" +
@@ -61,22 +65,21 @@ describe Board do
     "---------\n" +
     "- | - | -\n"
 
-    expect(board.print).to eq(board_printout)
+    expect(three_space_board.print).to eq(board_printout)
   end
 
   it "has empty spaces when created" do
-    board = Board.new
-    expect(board.empty_spaces?).to eq(true)
+    expect(three_space_board.empty_spaces?).to eq(true)
   end
 
   it "has no empty spaces when completely occupied" do
-    board = Board.new
+    three_space_board
     3.times do |index|
       3.times do |col_index|
-        board.add_turn('x', index, col_index)        
+        three_space_board.add_turn(x_player, index, col_index)
       end
     end
 
-    expect(board.empty_spaces?).to eq(false)
+    expect(three_space_board.empty_spaces?).to eq(false)
   end
 end
