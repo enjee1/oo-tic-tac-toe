@@ -5,24 +5,21 @@ describe GameTurn do
   let(:player) { Player.new('x') }
   let(:row_index) { 0 }
   let(:col_index) { 0 }
+  let(:turn) { GameTurn.new(board, player, row_index, col_index)}
 
   it "has a board" do
-    turn = GameTurn.new(board, player)
     expect(turn.board).to eq(board)
   end
 
   it "has a player" do
-    turn = GameTurn.new(board, player)
     expect(turn.player).to eq(player)
   end
 
   it "has a row index" do
-    GameTurn.new(board, player, row_index)
     expect(turn.row_index).to eq(row_index)
   end
 
   it "has a column index" do
-    GameTurn.new(board, player, col_index)
     expect(turn.col_index).to eq(col_index)
   end
 
